@@ -1,7 +1,14 @@
-import React from 'react'
+"use client"
+
+import { UserProvider } from "@/context/user"
+import { LoginForm } from "./form"
 
 export default function Page() {
   return (
-    <div>Page</div>
+    <UserProvider>
+      <div className="w-screen h-screen flex justify-center items-center">
+        <LoginForm />
+      </div>
+    </UserProvider>
   )
 }
