@@ -1,14 +1,26 @@
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
+  id                Int         @id @default(autoincrement())
+  email             String      @unique
+  replacement_email String      @unique
+  name              String
+  entry_code        String      @db.VarChar(6)
+  abilities         Abilities[]
+}
+
+model Abilities {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  User   User?  @relation(fields: [userId], references: [id])
+  userId Int?
 }
