@@ -14,7 +14,7 @@ model User {
   email           String      @unique
   secondary_email String?     @unique
   name            String      @db.VarChar(6)
-  entry_code      String
+  entry_code      String      @unique
   abilities       Abilities[]
 }
 
