@@ -10,17 +10,17 @@ generator client {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  email      String      @unique
-  name       String      @db.VarChar(6)
-  entry_code String
-  abilities  Abilities[]
+  id              Int         @id @default(autoincrement())
+  email           String      @unique
+  secondary_email String?     @unique
+  name            String      @db.VarChar(6)
+  entry_code      String
+  abilities       Abilities[]
 }
 
 model Abilities {
   id          Int    @id @default(autoincrement())
   name        String @unique
   description String @db.Text
-  User        User?  @relation(fields: [userId], references: [id])
-  userId      Int?
+  users       User[]
 }
