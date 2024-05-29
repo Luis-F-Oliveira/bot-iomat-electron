@@ -9,18 +9,27 @@ generator client {
   previewFeatures = ["multiSchema"]
 }
 
-model User {
-  id              Int         @id @default(autoincrement())
-  email           String      @unique
-  secondary_email String?     @unique
-  name            String      @db.VarChar(6)
-  entry_code      String      @unique
-  abilities       Abilities[]
+model Users {
+  id                Int                @id @default(autoincrement())
+  email             String             @unique
+  replacement_email String?            @unique
+  name              String
+  entry_code        String             @unique @db.VarChar(6)
+  abilities         AbilitiesOnUsers[]
 }
 
 model Abilities {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
-  description String @db.Text
-  users       User[]
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  description      String             @db.Text
+  users AbilitiesOnUsers[]
+}
+
+model AbilitiesOnUsers {
+  user        Users     @relation(fields: [userId], references: [id])
+  userId      Int
+  abilities   Abilities @relation(fields: [abilitiesId], references: [id])
+  abilitiesId Int
+
+  @@id([userId, abilitiesId])
 }
