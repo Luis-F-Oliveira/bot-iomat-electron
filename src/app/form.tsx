@@ -45,7 +45,7 @@ export function LoginForm() {
 
     if (auth.length !== 0) {
       localStorage.setItem('user', JSON.stringify(auth[0]))
-      router.push('/dashboard')
+      router.push('/dashboard/overview/analytics')
     } else {
       toast({
         title: "Erro ao cadastrar",
